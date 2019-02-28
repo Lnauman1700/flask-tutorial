@@ -37,4 +37,8 @@ def create_app(test_config = None):
     def hello():
         return 'Hello World!'
 
+    # this line is weird at first, looks like you're importing db.py from this directory (flaskr)
+    from . import db
+    db.init_app(app)
+
     return app
