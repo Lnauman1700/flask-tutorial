@@ -32,7 +32,7 @@ def register():
             error = 'Password is required'
         # runs query to see if username is present in DB
         elif db.execute(
-            'SELECT id FROM user WHERE username = ?' (username,)
+            'SELECT id FROM user WHERE username = ?', (username,)
         ).fetchone() is not None:
             error = f"User {username} is already registered."
         # if no similar username already exists, enter username and hashed password to DB
@@ -100,7 +100,7 @@ def logout():
     return redirect(url_for('index'))
 
 # this is a decorator
-# 
+#
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
