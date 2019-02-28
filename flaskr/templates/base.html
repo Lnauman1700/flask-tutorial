@@ -1,0 +1,29 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <h1>Flaskr</h1>
+  <ul>
+    <!--g is automatically available in templates. if g.user is set (meaning there's a logged in user), then username and logout links are displayed-->
+    {% if g.user %}
+      <li><span>{{ g.user['username'] }}</span>
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+    {% else %}
+      <li><a href="{{ url_for('auth.register') }}">Register</a>
+      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+    {% endif %}
+  </ul>
+</nav>
+
+<!--This section is the actual contents of the page. It's very general because it'll be the base for other pages.-->
+<section class="content">
+  <header>
+    <!--changes the title displayed on the page-->
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  <!--determines where the content of each page goes, like the login form or a blog post-->
+  {% block content %}{% endblock %}
+</section>
