@@ -3,6 +3,7 @@ import os
 from flask import Flask
 
 
+# function which creates the app and runs all of the proceses necessary to begin the application
 def create_app(test_config = None):
     # create/configure the app
 
@@ -40,5 +41,9 @@ def create_app(test_config = None):
     # this line is weird at first, looks like you're importing db.py from this directory (flaskr)
     from . import db
     db.init_app(app)
+
+    # import auth.py and register the blueprint made in that file.
+    from . import auth
+    app.register_blueprint(auth.bp)
 
     return app
